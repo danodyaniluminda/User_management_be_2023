@@ -14,6 +14,9 @@ public class Route {
     @Column(name = "id", nullable = false)
     private Long id;
 
+    @Column(name = "label")
+    private String label;
+
     @Column(name = "routename")
     private String routeName;
 
@@ -23,4 +26,12 @@ public class Route {
 
     @Column(name = "active", nullable = false)
     private Boolean active = false;
+
+    @Column(name = "path")
+    private String path;
+
+    @Column(name = "uri")
+    private String uri;
+
+
 }

@@ -29,7 +29,7 @@ public class Roleroute implements Serializable {
 
     @JsonManagedReference
     @OneToMany(mappedBy = "parent")
-    private Set<Roleroute> children;
+    private Set<Roleroute> items;
 
     @ManyToOne
     @JsonBackReference
