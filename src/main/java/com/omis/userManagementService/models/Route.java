@@ -1,8 +1,13 @@
 package com.omis.userManagementService.models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+
+import java.util.Set;
 
 @Getter
 @Setter
@@ -20,18 +25,22 @@ public class Route {
     @Column(name = "routename")
     private String routeName;
 
+    @JsonIgnore
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "category")
     private Category categoryId;
 
+
     @Column(name = "active", nullable = false)
     private Boolean active = false;
 
-    @Column(name = "path")
-    private String path;
+    @JsonManagedReference
+    @OneToMany(mappedBy = "parent")
+    private Set<Route> items;
 
-    @Column(name = "uri")
-    private String uri;
+    @ManyToOne
+    @JsonBackReference
+    private Route parent;
 
 
 }
