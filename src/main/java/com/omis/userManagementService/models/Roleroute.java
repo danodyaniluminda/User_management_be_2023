@@ -27,15 +27,10 @@ public class Roleroute implements Serializable {
     @JoinColumn(name = "routeid")
     private Route routeId;
 
-    @JsonManagedReference
-    @OneToMany(mappedBy = "parent")
-    private Set<Roleroute> items;
-
-    @ManyToOne
-    @JsonBackReference
-    private Roleroute parent;
 
     @Column(name = "active")
     private Boolean active;
 
 }
+
+

@@ -1,6 +1,8 @@
 package com.omis.userManagementService.controller;
 
 import com.omis.userManagementService.models.Roleroute;
+import com.omis.userManagementService.models.Route;
+import com.omis.userManagementService.payload.response.MenuDTO;
 import com.omis.userManagementService.service.RoleRouteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -17,7 +19,7 @@ public class RolerouteController {
     RoleRouteService roleRouteService;
 
     @GetMapping(value = "/getMenu")
-    public List<Roleroute> getAllCountries() {
+    public List<Route> getAllCountries() {
         return roleRouteService.getAll();
     }
 
