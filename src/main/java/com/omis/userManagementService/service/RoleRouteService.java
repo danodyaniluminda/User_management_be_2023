@@ -1,10 +1,11 @@
 package com.omis.userManagementService.service;
 
+import com.omis.userManagementService.models.Role;
 import com.omis.userManagementService.models.Route;
-import com.omis.userManagementService.payload.response.MenuDTO;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface RoleRouteService {
-    List<Route> getAll();
+    List<Route> getAll(Optional<Role> role);
 }
