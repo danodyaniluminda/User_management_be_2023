@@ -8,4 +8,8 @@ import java.util.Optional;
 
 public interface RoleRouteService {
     List<Route> getAll(Optional<Role> role);
+
+    List<Route> getSubMenu(Long rootId);
+
+    List<Route> getAllRootLevel(Integer rootId);
 }

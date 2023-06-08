@@ -29,9 +29,31 @@ public class RoleRouteServiceImpl implements RoleRouteService {
         for(Roleroute item : roleroutesByRole){
             routeArrayList.add(item.getRouteId());
         }
-        return routeArrayList.stream()
+        List<Route> routes = routeArrayList.stream()
                 .filter(menu -> Objects.isNull(menu.getParent()))
                 .toList();
+//        routes.stream().filter()
+//        for (Route route : routes){
+//            Set<Route> routeList = route.getItems();
+//        }
+        return routes;
 
     }
+
+    @Override
+    public List<Route> getSubMenu(Long rootId) {
+        return routeRepository.findAllByActiveAndParent(true,routeRepository.findById(rootId));
+    }
+
+    @Override
+    public List<Route> getAllRootLevel(Integer rootId) {
+        return routeRepository.findAllByActiveAndParent(true,null);
+
+    }
+
+//    @Override
+//    public List<Route> getAllRootLevel(Integer rootId){
+//        return routeRepository.findAllByActiveAndParent(true,null);
+//    }
+
 }

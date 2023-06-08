@@ -10,8 +10,6 @@ import java.util.Set;
 @NoArgsConstructor
 public class MenuDTO {
     private String routeLink;
-    private String icon;
     private String label;
     private Set<MenuDTO> items;
-
 }

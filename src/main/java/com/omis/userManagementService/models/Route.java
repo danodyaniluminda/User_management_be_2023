@@ -46,6 +46,4 @@ public class Route {
     @ManyToOne
     @JsonBackReference
     private Route parent;
-
-
 }
