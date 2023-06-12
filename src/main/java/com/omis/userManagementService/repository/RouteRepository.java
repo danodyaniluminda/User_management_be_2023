@@ -7,5 +7,5 @@ import java.util.List;
 import java.util.Optional;
 
 public interface RouteRepository extends JpaRepository<Route, Long> {
-    List<Route> findAllByActiveAndParent(Boolean b, Optional<Route> route);
+//    List<Route> findAllByActiveAndParent(Boolean b, Optional<Route> route);
 }

@@ -20,14 +20,14 @@ public class Route {
     @Column(name = "id", nullable = false)
     private Long id;
 
-    @Column(name = "label")
-    private String label;
+//    @Column(name = "label")
+//    private String label;
 
     @Column(name = "routename")
     private String routeLink;
 
-    @Column(name = "icon")
-    private String icon;
+//    @Column(name = "icon")
+//    private String icon;
 
     @JsonIgnore
     @ManyToOne(fetch = FetchType.EAGER)
@@ -39,11 +39,12 @@ public class Route {
     @Column(name = "active", nullable = false)
     private Boolean active = false;
 
-    @JsonManagedReference
-    @OneToMany(mappedBy = "parent")
-    private Set<Route> items;
+//    @JsonManagedReference
+//    @OneToMany(mappedBy = "parent")
+//    private Set<Route> items;
 
-    @ManyToOne
-    @JsonBackReference
-    private Route parent;
+//    @ManyToOne
+//    @JsonBackReference
+//    private Route parent;
+
 }
