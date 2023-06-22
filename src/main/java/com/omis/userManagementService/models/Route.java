@@ -31,7 +31,7 @@ public class Route {
 
     @JsonIgnore
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "category")
+    @JoinColumn(name = "category_id")
     private Category categoryId;
 
 
