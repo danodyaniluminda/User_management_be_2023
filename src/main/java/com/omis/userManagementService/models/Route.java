@@ -15,7 +15,7 @@ import java.util.Set;
 @Table(name = "route")
 public class Route {
     @Id
-    @JsonIgnore
+    //@JsonIgnore
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     private Long id;
@@ -29,13 +29,13 @@ public class Route {
 //    @Column(name = "icon")
 //    private String icon;
 
-    @JsonIgnore
+    //@JsonIgnore
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "category_id")
     private Category categoryId;
 
 
-    @JsonIgnore
+    //@JsonIgnore
     @Column(name = "active", nullable = false)
     private Boolean active = false;
 
