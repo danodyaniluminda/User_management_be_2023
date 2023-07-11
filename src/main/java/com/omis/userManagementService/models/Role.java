@@ -1,12 +1,13 @@
 package com.omis.userManagementService.models;
 
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
-@Getter
-@Setter
+
 @Entity
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 @Table(name = "role")
 public class Role {
     @Id
@@ -24,4 +25,6 @@ public class Role {
     @Column(name = "active")
     private Boolean active;
 
+    public void setCategory(Category category) {
+    }
 }
