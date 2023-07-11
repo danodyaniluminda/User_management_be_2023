@@ -1,23 +1,28 @@
 package com.omis.userManagementService.service.impl;
 
+import com.omis.userManagementService.models.Category;
 import com.omis.userManagementService.models.Route;
+import com.omis.userManagementService.payload.response.RouteRequest;
+import com.omis.userManagementService.payload.response.RouteResponse;
 import com.omis.userManagementService.repository.RouteRepository;
+import com.omis.userManagementService.service.CategoryService;
 import com.omis.userManagementService.service.RouteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class RouteServiceImpl implements RouteService {
 
-    private final RouteRepository routeRepository;
+
 
     @Autowired
-    public RouteServiceImpl(RouteRepository routeRepository) {
-        this.routeRepository = routeRepository;
-    }
+    RouteRepository routeRepository;
+
+    @Autowired
+    CategoryService categoryService;
 
     @Override
     public List<Route> getAllRoutes() {
@@ -25,56 +30,54 @@ public class RouteServiceImpl implements RouteService {
     }
 
     @Override
-    public boolean updateRouteAdd(Long id, Boolean add) {
-        Optional<Route> optionalRoute = routeRepository.findById(id);
-        if (optionalRoute.isPresent()) {
-            Route route = optionalRoute.get();
-            route.setAdd(add != null && add);
-            routeRepository.save(route);
-            return true;
-        } else {
-            return false;
+    public List<RouteResponse> getAllRouteResponse() {
+        List<Route> routes = routeRepository.findAll();
+        List<RouteResponse> routeResponseList = new ArrayList<>();
+        for (int i = 0; i < routes.size(); i++) {
+            routeResponseList.add(new RouteResponse());
         }
+        return routeResponseList;
     }
+
     @Override
-    public boolean updateRouteEdit(Long id, Boolean edit) {
-        Optional<Route> optionalRoute = routeRepository.findById(id);
-        if (optionalRoute.isPresent()) {
-            Route route = optionalRoute.get();
-            route.setEdit(edit != null && edit);
+    public String addNewRoute(RouteRequest routeRequest) {
+        try {
+            Route route = new Route();
+            route.setRouteLink(routeRequest.getRouteLink());
+            Category category = categoryService.findById(routeRequest.getCategoryId());
+            if(category==null){
+                return "error : No value present for category ID : " + routeRequest.getCategoryId().toString();
+            }
+            route.setCategoryId(category);
+            route.setActive(routeRequest.getActive());
+            route = routeRepository.save(route);
+            return "success : New Route with ID (" + route.getId().toString() + ") created successfully";
+        }catch (Error e){
+            return "error : " + e.getLocalizedMessage();
+        }
+
+    }
+
+    @Override
+    public String updateRoute(Route route) {
+        try{
             routeRepository.save(route);
-            return true;
-        } else {
-            return false;
+            return "success : Route with ID (" + route.getId().toString() + ") updated successfully";
+        }catch (Error e){
+            return "error : " + e.getLocalizedMessage();
         }
     }
 
     @Override
-    public boolean updateRouteDelete(Long id, Boolean delete) {
-        Optional<Route> optionalRoute = routeRepository.findById(id);
-        if (optionalRoute.isPresent()) {
-            Route route = optionalRoute.get();
-            route.setDelete(delete != null && delete);
+    public String archiveRoute(Long id) {
+        try{
+            Route route = routeRepository.findById(id).orElseThrow();
+            //Set archive false
+            //route.setActive(false);
             routeRepository.save(route);
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-
-    @Override
-    public boolean updateRouteAll(Long id, Boolean add, Boolean edit,Boolean delete ) {
-        Optional<Route> optionalRoute = routeRepository.findById(id);
-        if (optionalRoute.isPresent()) {
-            Route route = optionalRoute.get();
-            route.setAdd(add != null && add);
-            route.setEdit(edit != null && edit);
-            route.setDelete(delete != null && delete);
-            routeRepository.save(route);
-            return true;
-        } else {
-            return false;
+            return "success : ";
+        }catch (Error e){
+            return "error : " + e.getLocalizedMessage();
         }
     }
 }

@@ -1,96 +1,59 @@
 package com.omis.userManagementService.controller;
 
-import com.omis.userManagementService.payload.request.RoutePermissionRequest;
+import com.omis.userManagementService.models.Route;
+import com.omis.userManagementService.payload.response.RouteRequest;
 import com.omis.userManagementService.service.RouteService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.bind.annotation.CrossOrigin;
 
 @RestController
-@RequestMapping(value = "/api/user_management")
-@CrossOrigin(origins = "*",maxAge = 3600)
+@CrossOrigin("*")
+@RequestMapping("/api/v1/routes")
 public class RouteController {
-    private final RouteService routeService;
 
     @Autowired
-    public RouteController(RouteService routeService) {
-        this.routeService = routeService;
+    RouteService routeService;
+
+    @GetMapping(value ="/get_all_routes")
+    public ResponseEntity<?> getAllRoutes(){
+        return ResponseEntity.ok().body(routeService.getAllRoutes());
     }
 
-    @PutMapping("/updateRoutesAdd/{id}")
-    public ResponseEntity<Void> updateRouteAdd(@RequestBody RoutePermissionRequest request, @PathVariable("id") Long id){
-        try {
-            boolean updated = routeService.updateRouteAdd(id,request.getAdd());
-            if (updated) {
-                return ResponseEntity.ok().build();
-            } else {
-                return ResponseEntity.notFound().build();
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+    @PostMapping("/add_new_route")
+    public ResponseEntity<?> addNewRoute(@RequestBody RouteRequest routeRequest){
+        System.out.println("Line 31");
+        String response = routeService.addNewRoute(routeRequest);
+        if(response.toLowerCase().startsWith("success")){
+            return ResponseEntity.ok().body(response);
+        }else{
+            return ResponseEntity.badRequest().body(response);
         }
     }
 
-    @PutMapping("/updateRouteEdit/{id}")
-    public ResponseEntity<Void> updateRouteEdit(@RequestBody RoutePermissionRequest request, @PathVariable("id") Long id){
-        try {
-            boolean updated = routeService.updateRouteEdit(id,request.getEdit());
-            if (updated) {
-                return ResponseEntity.ok().build();
-            } else {
-                return ResponseEntity.notFound().build();
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+    @PutMapping("/update_route")
+    public ResponseEntity<?> updateRoute(@RequestBody Route route){
+
+        String response = routeService.updateRoute(route);
+
+
+        if(response.toLowerCase().startsWith("success")){
+            return ResponseEntity.ok().body(response);
+        }else{
+            return ResponseEntity.badRequest().body(response);
         }
     }
 
-    @PutMapping("/updateRoutesDelete/{id}")
-    public ResponseEntity<Void> updateRouteDelete(@RequestBody RoutePermissionRequest request, @PathVariable("id") Long id){
-        try {
-            boolean updated = routeService.updateRouteDelete(id,request.getDelete());
-            if (updated) {
-                return ResponseEntity.ok().build();
-            } else {
-                return ResponseEntity.notFound().build();
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+    @GetMapping("/archive_route")
+    public ResponseEntity<?> archiveRoute(@RequestParam Long id){
+        String response = routeService.archiveRoute(id);
+        System.out.println("response : "+ response);
+        if(response.toLowerCase().startsWith("success")){
+            return ResponseEntity.ok().body(response);
+        }else{
+            return ResponseEntity.badRequest().body(response);
         }
     }
-
-    @PutMapping("/updateRouteAll/{id}/{add}/{edit}/{delete}")
-    public ResponseEntity<Void> updateRouteAll(
-            @PathVariable("id") Long id,
-            @PathVariable("add") Boolean Add,
-            @PathVariable("edit") Boolean Edit,
-            @PathVariable("delete") Boolean Delete
-    ) {
-        try {
-            boolean updated = routeService.updateRouteAll(id,Add, Edit, Delete);
-            if (updated) {
-                return ResponseEntity.ok().build();
-            } else {
-                return ResponseEntity.notFound().build();
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
-        }
-
-
-
-
-    }
-
-
 
 
 

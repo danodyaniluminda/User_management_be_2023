@@ -1,19 +1,16 @@
 package com.omis.userManagementService.service;
 
 import com.omis.userManagementService.models.Route;
-import org.springframework.stereotype.Service;
+import com.omis.userManagementService.payload.response.RouteRequest;
+import com.omis.userManagementService.payload.response.RouteResponse;
 
+import java.util.HashMap;
 import java.util.List;
-@Service
+
 public interface RouteService {
     List<Route> getAllRoutes();
-
-    boolean updateRouteEdit(Long id, Boolean edit);
-
-    boolean updateRouteDelete(Long id, Boolean delete);
-
-    boolean updateRouteAdd(Long id, Boolean add);
-
-
-    boolean updateRouteAll(Long id, Boolean add, Boolean edit, Boolean delete);
+    List<RouteResponse> getAllRouteResponse();
+    String addNewRoute(RouteRequest routeRequest);
+    String updateRoute(Route route);
+    String archiveRoute(Long id);
 }
