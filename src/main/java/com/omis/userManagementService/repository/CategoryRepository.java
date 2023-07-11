@@ -1,11 +1,12 @@
 package com.omis.userManagementService.repository;
 
 import com.omis.userManagementService.models.Category;
-import com.omis.userManagementService.models.Route;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
 
-public interface RouteRepository extends JpaRepository<Route, Long> {
-    Optional<Route> findById(Long id);
+@Repository
+public interface CategoryRepository extends JpaRepository<Category, Long> {
+    Optional<Category> findById(Long id);
 }
