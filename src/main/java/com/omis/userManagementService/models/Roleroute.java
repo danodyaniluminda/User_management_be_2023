@@ -31,6 +31,16 @@ public class Roleroute implements Serializable {
     @Column(name = "active")
     private Boolean active;
 
+    @Column(name = "add")
+    private Boolean Add;
+
+    @Column(name = "edit")
+    private Boolean Edit;
+
+
+    @Column(name = "delete")
+    private Boolean Delete;
+
 }
 
 

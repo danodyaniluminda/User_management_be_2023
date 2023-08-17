@@ -2,9 +2,11 @@ package com.omis.userManagementService.service.impl;
 
 import com.omis.userManagementService.models.Category;
 import com.omis.userManagementService.models.Role;
+import com.omis.userManagementService.models.Roleroute;
 import com.omis.userManagementService.models.Route;
 import com.omis.userManagementService.repository.CategoryRepository;
 import com.omis.userManagementService.repository.RoleRepository;
+import com.omis.userManagementService.repository.RolerouteRepository;
 import com.omis.userManagementService.repository.RouteRepository;
 import com.omis.userManagementService.service.RoleService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,12 +19,14 @@ import java.util.Optional;
 public class RoleServiceImpl implements RoleService {
 
     private final RoleRepository roleRepository;
+    private final RolerouteRepository rolerouteRepository;
     private final RouteRepository routeRepository;
     private final CategoryRepository categoryRepository;
 
     @Autowired
-    public RoleServiceImpl(RoleRepository roleRepository, RouteRepository routeRepository, CategoryRepository categoryRepository) {
+    public RoleServiceImpl(RoleRepository roleRepository, RolerouteRepository rolerouteRepository, RouteRepository routeRepository, CategoryRepository categoryRepository) {
         this.roleRepository = roleRepository;
+        this.rolerouteRepository = rolerouteRepository;
         this.routeRepository = routeRepository;
         this.categoryRepository = categoryRepository;
     }
@@ -59,6 +63,10 @@ public class RoleServiceImpl implements RoleService {
         return routeRepository.findAll();
     }
 
+    public List<Roleroute> getAllRolerRouteNames() {
+        return rolerouteRepository.findAll();
+    }
+
     @Override
     public void deleteRole(Long id) {
         roleRepository.deleteById(id);
@@ -73,6 +81,61 @@ public class RoleServiceImpl implements RoleService {
             role.setActive(status);
             role.setCategory(categoryRepository.findById(categoryId).orElse(null));
             roleRepository.save(role);
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    @Override
+    public boolean updateRoleRouteAdd(Long id, Boolean add) {
+        Optional<Roleroute> optionalRoleroute = rolerouteRepository.findById(id);
+        if (optionalRoleroute.isPresent()) {
+            Roleroute roleroute = optionalRoleroute.get();
+            roleroute.setAdd(add != null && add);
+            rolerouteRepository.save(roleroute);
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    @Override
+    public boolean updateRoleRouteEdit(Long id, Boolean edit) {
+        Optional<Roleroute> optionalRoleroute = rolerouteRepository.findById(id);
+        if (optionalRoleroute.isPresent()) {
+            Roleroute roleroute = optionalRoleroute.get();
+            roleroute.setEdit(edit != null && edit);
+            rolerouteRepository.save(roleroute);
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    @Override
+    public boolean updateRoleRouteDelete(Long id, Boolean delete) {
+        Optional<Roleroute> optionalRoleroute = rolerouteRepository.findById(id);
+        if (optionalRoleroute.isPresent()) {
+            Roleroute roleroute = optionalRoleroute.get();
+            roleroute.setDelete(delete != null && delete);
+            rolerouteRepository.save(roleroute);
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+
+    @Override
+    public boolean updateRoleRouteAll(Long id, Boolean add, Boolean edit, Boolean delete) {
+        Optional<Roleroute> optionalRoleroute = rolerouteRepository.findById(id);
+        if (optionalRoleroute.isPresent()) {
+            Roleroute roleroute = optionalRoleroute.get();
+            roleroute.setAdd(add != null && add);
+            roleroute.setEdit(edit != null && edit);
+            roleroute.setDelete(delete != null && delete);
+            rolerouteRepository.save(roleroute);
             return true;
         } else {
             return false;

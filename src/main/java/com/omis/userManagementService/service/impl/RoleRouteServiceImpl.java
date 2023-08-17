@@ -74,6 +74,7 @@ public class RoleRouteServiceImpl implements RoleRouteService {
         return routeArrayList;
     }
 
+
 //    @Override
 //    public List<Route> getAllRootLevel(Integer rootId){
 //        return routeRepository.findAllByActiveAndParent(true,null);

@@ -15,4 +15,5 @@ public interface RoleRouteService {
     List<Route> getAllRootLevel(Integer rootId);
 
     List<Route> getPermissions(String routeLink, String roleName);
+
 }

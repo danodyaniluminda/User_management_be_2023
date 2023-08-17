@@ -17,7 +17,7 @@ import java.util.Set;
 @Table(name = "route")
 public class Route {
     @Id
-    @JsonIgnore
+//    @JsonIgnore
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     private Long id;
@@ -28,15 +28,7 @@ public class Route {
     @Column(name = "routename")
     private String routeLink;
 
-    @Column(name = "add")
-    private Boolean Add;
 
-    @Column(name = "edit")
-    private Boolean Edit;
-
-
-    @Column(name = "delete")
-    private Boolean Delete;
 
     @JsonIgnore
     @ManyToOne(fetch = FetchType.EAGER)
@@ -48,13 +40,13 @@ public class Route {
     @Column(name = "active", nullable = false)
     private Boolean active = false;
 
-    @JsonManagedReference
-    @OneToMany(mappedBy = "parent")
-    private Set<Route> items;
-
-    @ManyToOne
-    @JsonBackReference
-    private Route parent;
+//    @JsonManagedReference
+//    @OneToMany(mappedBy = "parent")
+//    private Set<Route> items;
+//
+//    @ManyToOne
+//    @JsonBackReference
+//    private Route parent;
 
 
 }
